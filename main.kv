@@ -1,0 +1,92 @@
+<LeftCheckBox@ILeftBodyTouch+MDCheckbox>:
+    
+<MyItem@OneLineAvatarIconListItem>:
+    text:""
+    IconRightWidget:
+        icon: "calendar"
+    LeftCheckBox:
+        id:checkbox
+
+
+
+
+FloatLayout:
+
+
+    MDLabel:
+        id:label
+        
+        pos_hint:{"center_x":0.87, "center_y":0.9}
+        markup:True
+        text:"[b][u][size=43]Task Manager[/size][/u][/b]"
+       
+
+    MDRaisedButton:
+        text:"Add task"
+        size_hint_x:0.15
+        size_hint_y:None
+        height:"60dp"
+        pos_hint:{"center_x":0.37, "top":0.16}
+        md_bg_color:"teal"
+        on_release: app.add_task()
+
+    MDRaisedButton:
+        text: "Delete task"
+        pos_hint:{"center_x":0.5, "top":0.15 }
+        size_hint_x:0.15
+        size_hint_y:None
+        height:"60dp"
+        pos_hint:{"center_x":0.63, "top":0.16}
+        md_bg_color:"teal"
+       # on_release:app.delete_tasks()
+        on_release: app.show_dialog()
+
+    
+
+    ScrollView:
+        id: container
+        pos_hint: {"center_x":0.5, "top":0.8}
+        size_hint: None,None
+        size: "300dp","300dp"
+        MDList:
+            id:task_list
+          
+
+    MDTextField:
+        id: task_input
+        hint_text: "Add a task..."
+        font_size: 35
+        pos_hint:{"center_x":0.5, "center_y":0.26}
+        size_hint_x:None
+        width:300
+        current_hint_text_color:app.theme_cls.primary_color
+        text: app.task_input_text
+
+<DialogContent>:
+    orientation: 'vertical'
+    spacing: "10dp"
+    #text: "Delete selected items?"
+    size_hint:1,None
+    height:"130dp"
+    
+    MDLabel:
+        text: "Delete selected items?"
+        halign: "left"
+        font_style: "Subtitle1"
+        theme_text_color: "Secondary"
+
+    MDBoxLayout:
+        orientation: "horizontal"
+        spacing: "10dp"
+        size_hint_y: None
+        height: "40dp"
+        pos_hint: {"right": 1, "bottom": 1}
+
+        MDFlatButton:
+            text:"Delete"
+            on_release:app.delete_tasks();app.close_dialog(None)
+
+    
+        MDFlatButton:
+            text:"Cancel"
+            on_release:app.close_dialog(None)
